@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+# here we should install flask, and set the approppiate ports, commands
+# we should not forget to use nginx o any other reverse proxy
+  app:
+    image: python:3.8-alpine
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      SQL_HOST: mariadb
+      SQL_USER: root
+      SQL_PASSWORD: secret
+      SQL_DB: name
+
+  mariadb:
+    image: mariadb:10.4
+    volumes: 
+      - sql-data:/var/lib/mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: name
+
+volumes:
+  sql-data:
