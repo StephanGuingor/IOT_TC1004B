@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 pylint = "*"
 flask = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.10"
