@@ -5,7 +5,8 @@ name: Test python application
 
 on:
   push:
-    branches: [ master ]
+    branches: 
+      - "*"
   pull_request:
     branches: [ master ]
 
@@ -62,4 +63,4 @@ jobs:
         
     - name: Test with pytest
       run: |
-        pytest
+        pipenv run pytest
