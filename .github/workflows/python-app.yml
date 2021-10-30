@@ -58,10 +58,7 @@ jobs:
           
     - name: Run linter
       run: |
-        pipenv run pylint
-    - name: Run formatting check
-      run: |
-        pipenv run format --check
+        bash scripts/check_format.sh "origin/master...HEAD"
         
     - name: Test with pytest
       run: |
