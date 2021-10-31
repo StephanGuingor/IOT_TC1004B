@@ -5,7 +5,8 @@ name: Test python application
 
 on:
   push:
-    branches: [ master ]
+    branches: 
+      - "*"
   pull_request:
     branches: [ master ]
 
@@ -25,9 +26,14 @@ jobs:
           MYSQL_DATABASE: test
           MYSQL_ROOT_PASSWORD: ${{ secrets.TEST_SQL_ROOT_PASSWORD }}
         options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
-     
+      mqtt-broker:
+        image: eclipse-mosquitto:latest
+        ports:
+          - 9001
     steps:
     - uses: actions/checkout@v2
+      with:
+          fetch-depth: 0
     
     - name: Verify MariaDB connection
       env:
@@ -58,8 +64,8 @@ jobs:
           
     - name: Run linter
       run: |
-        bash scripts/check_format.sh "origin/master...HEAD"
-        
-    - name: Test with pytest
+        pipenv run bash scripts/check_format.sh "origin/master...HEAD"
+
+    - name: Test coverage
       run: |
-        pytest
+        pipenv run bash scripts/check_coverage.sh "origin/master...HEAD"
