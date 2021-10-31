@@ -1,0 +1,40 @@
+version: "3.7"
+
+services:
+  server:
+    image: "nginx:alpine"
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - mosquitto
+      # web-server.conf /etc/nginx/conf.d/default.conf map this when we get a conf file
+  mosquitto:
+    image: "eclipse-mosquitto"
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+      # mosquitto.conf:/mosquitto/config/mosquitto.conf # map this when we have a conf file
+  mariadb:
+    iamge: "mariadb:latest"
+    enviornment:
+      MARIADB_ROOT_PASSWORD:
+      MARIADB_DATABASE:
+      MARIADB_USER:
+      MARIADB_PASSWORD:
+    # /etc/mysql/conf.d can map any conf file
+  mqtt-client:
+    container_name: mqtt-client
+    build: ./mqtt-client
+    restart: always
+    depends_on: 
+      - mosquitto
+      - mariadb
+
+  rest-client:
+    container_name: rest-client
+    build: ./rest-client
+    restart: always
+    depends_on: 
+      - mosquitto
+      - mariadb
