@@ -16,25 +16,25 @@ services:
       - "9001:9001"
       # mosquitto.conf:/mosquitto/config/mosquitto.conf # map this when we have a conf file
   mariadb:
-    iamge: "mariadb:latest"
-    enviornment:
-      MARIADB_ROOT_PASSWORD:
-      MARIADB_DATABASE:
-      MARIADB_USER:
-      MARIADB_PASSWORD:
+    image: "mariadb:latest"
+    environment:
+      - MARIADB_ROOT_PASSWORD=password
+      - MARIADB_DATABASE=test
+      - MARIADB_USER=test
+      - MARIADB_PASSWORD=test
     # /etc/mysql/conf.d can map any conf file
   mqtt-client:
-    container_name: mqtt-client
+    image: iot/mqtt-client:latest
     build: ./mqtt-client
-    restart: always
+    # restart: always
     depends_on: 
       - mosquitto
       - mariadb
 
   rest-client:
-    container_name: rest-client
+    image: iot/rest-client:latest
     build: ./rest-client
-    restart: always
+    # restart: always
     depends_on: 
       - mosquitto
       - mariadb

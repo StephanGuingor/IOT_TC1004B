@@ -2,18 +2,10 @@
 Repositorio para la actividad integradora de la materia TC1004B
 
 
-Para iniciar la aplicacion: 
+Para iniciar la aplicacion en local: 
 
 ```sh
 
-make start
-
-```
-
-Para correr los tests sin data persistente:
-
-```sh
-
-make test
+docker-compose up -d --build
 
 ```
