@@ -2,8 +2,6 @@
 
 diff="$1"
 
-# shellcheck disable=SC2005
-echo $(git diff --name-status "origin/master...HEAD")
 files_to_lint=$(git diff --name-status "$diff" | grep -E '^(A|R|M).*\.py$' | awk '{print $NF}')
 
 exit_code=0
