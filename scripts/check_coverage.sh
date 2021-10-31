@@ -21,7 +21,7 @@ for package in $packages_to_test; do
     fi
 done;
 
-
+rm $tmpdir/.res
 rm .coverage
 
 exit $exit_code
