@@ -8,10 +8,9 @@ exit_code=0
 mkdir -p $tmpdir
 for package in $packages_to_test; do
     echo "Testing $package..."
-    out=$(pytest --cov=$package --cov-branch)
-    cov=$(echo $out | xargs -d '\n' | grep TOTAL | awk '{print $NF}' | tr '%' '\0')
-    echo $out | xargs -d '\n'
-    
+    pytest --cov=$package --cov-branch &> $tmpdir/.res
+    cov=$(cat $tmpdir/.res | grep TOTAL | awk '{print $NF}' | tr '%' '\0')
+    cat $tmpdir/.res
     if [ $cov -lt 80 ]; then
         echo -e "\033[33mCoverage not pasing...\033[0m"
         exit_code=1
