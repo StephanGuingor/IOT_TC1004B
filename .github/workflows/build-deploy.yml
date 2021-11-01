@@ -57,19 +57,4 @@ jobs:
           context: rest-client
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/rest-client:latest
-
-  deploy-production:
-    runs-on: ubuntu-latest
-    needs: [docker-mqtt,docker-rest]
-    if: github.ref == 'refs/heads/master'
-    steps:
-    # the checkout action persists the passed credentials by default
-    # subsequent git commands will pick them up automatically
-    - uses: actions/checkout@v2
-    - uses: everlytic/branch-merge@1.1.2
-      with:
-        token: ${{ secrets.PAT }}
-        source_ref: ${{ github.ref }}
-        target_branch: 'production'
-        commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
         
