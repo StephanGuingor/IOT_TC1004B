@@ -5,8 +5,8 @@ files:
    destination: /
 hooks:
   Install:
-    - location: setup.sh
-      timeout: 3600
+    - location: scripts/setup.sh
+      timeout: 100
   ApplicationStart:
-    - location: start.sh
-      timeout: 3600
+    - location: scripts/start.sh
+      timeout: 100
