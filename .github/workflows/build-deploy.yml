@@ -75,7 +75,7 @@ jobs:
         id: deploy
         run: |
           aws deploy create-deployment \
-            --application-name iot-application \
-            --deployment-group-name IoTCodeDeployRole \
-            --deployment-config-name CodeDeployDefault.OneAtATime \
+            --application-name iot \
+            --deployment-group-name prod \
+            --deployment-config-name CodeDeployDefault.AllAtATime \
             --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
