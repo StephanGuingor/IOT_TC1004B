@@ -24,7 +24,7 @@ services:
       - MARIADB_PASSWORD=test
     # /etc/mysql/conf.d can map any conf file
   mqtt-client:
-    image: iot/mqtt-client:latest
+    image: stephantec/mqtt-client:latest
     build: ./mqtt-client
     # restart: always
     depends_on: 
@@ -32,7 +32,7 @@ services:
       - mariadb
 
   rest-client:
-    image: iot/rest-client:latest
+    image: stephantec/rest-client:latest
     build: ./rest-client
     # restart: always
     depends_on: 
