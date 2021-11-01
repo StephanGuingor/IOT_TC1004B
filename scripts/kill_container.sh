@@ -1,3 +1,3 @@
 #!/bin/sh
 # Remember to change back to ec2-user
-# docker-compose down
+docker-compose down
