@@ -66,11 +66,9 @@ jobs:
     # the checkout action persists the passed credentials by default
     # subsequent git commands will pick them up automatically
     - uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.PAT }}
     - uses: everlytic/branch-merge@1.1.2
       with:
-        github_token: ${{ github.token }}
+        token: ${{ secrets.PAT }}
         source_ref: ${{ github.ref }}
         target_branch: 'production'
         commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
