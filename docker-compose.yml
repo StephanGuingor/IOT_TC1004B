@@ -23,6 +23,9 @@ services:
       - MARIADB_USER=test
       - MARIADB_PASSWORD=test
     # /etc/mysql/conf.d can map any conf file
+    ports:
+      - "3306:3306"
+      
   mqtt-client:
     image: iot/mqtt-client:latest
     build: ./mqtt-client
