@@ -20,9 +20,9 @@ jobs:
           - 3306
         env:
           MYSQL_USER: user
-          MYSQL_PASSWORD: ${{ secrets.SQL_PASSWORD }}
+          MYSQL_PASSWORD: tests
           MYSQL_DATABASE: test
-          MYSQL_ROOT_PASSWORD: ${{ secrets.TEST_SQL_ROOT_PASSWORD }}
+          MYSQL_ROOT_PASSWORD: test
         options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
       mqtt-broker:
         image: eclipse-mosquitto:latest

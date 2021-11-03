@@ -17,11 +17,8 @@ services:
       # mosquitto.conf:/mosquitto/config/mosquitto.conf # map this when we have a conf file
   mariadb:
     image: "mariadb:latest"
-    environment:
-      - MARIADB_ROOT_PASSWORD=password
-      - MARIADB_DATABASE=test
-      - MARIADB_USER=test
-      - MARIADB_PASSWORD=test
+    env_file:
+      - mariadb.env
     # /etc/mysql/conf.d can map any conf file
     ports:
       - "3306:3306"
