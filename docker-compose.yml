@@ -25,6 +25,8 @@ services:
     # /etc/mysql/conf.d can map any conf file
     ports:
       - "3306:3306"
+    volumes:
+      - "../data:/var/lib/mysql"
       
   mqtt-client:
     image: stephantec/mqtt-client:latest
