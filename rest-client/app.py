@@ -50,7 +50,7 @@ def get_data():
     for med in meds:
         json_meds[med.idMedicion]= ({"valor":med.valor}, {"fecha":med.tsMedicion.date()})
     response= jsonify(json_meds)
-    response.status_code=201
+    response.status_code=200
     return response
 
 if __name__ == "__main__":
