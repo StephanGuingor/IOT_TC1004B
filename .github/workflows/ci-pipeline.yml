@@ -64,6 +64,6 @@ jobs:
       run: |
         pipenv run bash scripts/check_format.sh "origin/master...HEAD"
 
-    - name: Test coverage
-      run: |
-        pipenv run bash scripts/check_coverage.sh "origin/master...HEAD"
+    # - name: Test coverage
+    #   run: |
+    #     pipenv run bash scripts/check_coverage.sh "origin/master...HEAD"
