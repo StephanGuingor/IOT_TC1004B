@@ -22,6 +22,7 @@ class DataRecord(db.Model):
     TimeCreated = db.Column('TimeCreated', db.DateTime(timezone=True), default=datetime.utcnow)
     
 
+    #AQUI PUEDE HABER ERRORES
     DeviceOwnerID=db.Column(db.Integer,db.ForeignKey('DeviceOwnership.slug'), primary_key=True)
 
     __table_args__ = (
