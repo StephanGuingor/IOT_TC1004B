@@ -7,11 +7,14 @@ verify_ssl = true
 
 [packages]
 pylint = "*"
-flask = "*"
 pytest = "*"
 python-dotenv = "*"
 coverage = "*"
 pytest-cov = "*"
+mysql-connector = "*"
+flask-expects-json = "*"
+Flask = "*"
+Flask-SQLAlchemy = "*"
 
 [requires]
 python_version = "3.10"
