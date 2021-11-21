@@ -4,9 +4,7 @@ from models.client import ClientModel
 ERR_NOT_FOUND = ({"message": "Element not found"}, 404)
 
 parser = reqparse.RequestParser()
-parser.add_argument(
-    "name", type=str, required=True, help="This field cannot be left blank!"
-)
+parser.add_argument("name", type=str, required=True, help="name is required")
 
 
 class Client(Resource):
@@ -29,6 +27,6 @@ class ClientList(Resource):
         try:
             client.save_to_db()
         except Exception as e:
-            return {f"An error ocurred: {e}"}, 500
+            return {"message": f"An error ocurred: {e}"}, 500
 
         return client.json(), 201

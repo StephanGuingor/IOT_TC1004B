@@ -4,14 +4,10 @@ from models.device import DeviceModel
 ERR_NOT_FOUND = ({"message": "Element not found"}, 404)
 
 parser = reqparse.RequestParser()
-parser.add_argument(
-    "model",
-    type=int,
-    required=False,
-)
+parser.add_argument("model", type=str, required=True, help="model is required")
 
 parser.add_argument(
-    "pre_heat_time", type=int, required=True, help="gas_concentration is required."
+    "pre_heat_time", type=int, required=True, help="pre_heat_time is required."
 )
 
 parser.add_argument(
@@ -20,12 +16,7 @@ parser.add_argument(
     required=False,
 )
 
-parser.add_argument(
-    "ideal_temperature",
-    type=str,
-    required=True,
-    help="Every data record should be linked to a client.",
-)
+parser.add_argument("ideal_temperature", type=int, required=False)
 
 
 class Device(Resource):
@@ -44,13 +35,13 @@ class DeviceList(Resource):
         }, 200  # filter by client ?
 
     def post(self):
-        data = Device.parser.parse_args()
+        data = parser.parse_args()
 
         device = DeviceModel(**data)
 
         try:
             device.save_to_db()
         except Exception as e:
-            return {f"An error ocurred: {e}"}, 500
+            return {"message": f"An error ocurred: {e}"}, 500
 
         return device.json(), 201

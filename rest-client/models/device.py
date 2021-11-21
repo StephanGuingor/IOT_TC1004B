@@ -1,7 +1,5 @@
-from flask_sqlalchemy import BaseQuery
 from db import db
 from models.base_model import BaseModel
-from models.device_ownership import device_client_table
 from sqlalchemy.sql import text
 
 schemaDevice = {
@@ -16,6 +14,45 @@ schemaDevice = {
 }
 
 
+device_client_table = db.Table(
+    "device_client_table",
+    db.Column(
+        "client_id",
+        db.Integer,
+        db.ForeignKey("Client.ClientID"),
+        primary_key=True,
+        nullable=False,
+    ),
+    db.Column(
+        "device_model",
+        db.String(40),
+        db.ForeignKey("Device.Model"),
+        primary_key=True,
+        nullable=False,
+    ),
+)
+
+
+# class Link(BaseModel, db.Model):
+#     __tablename__ = "link"
+#     client_id = (
+#         db.Column(
+#             db.Integer,
+#             db.ForeignKey("Client.ClientID"),
+#             primary_key=True,
+#             nullable=False,
+#         ),
+#     )
+#     device_model = (
+#         db.Column(
+#             db.Integer,
+#             db.ForeignKey("Client.ClientID"),
+#             primary_key=True,
+#             nullable=False,
+#         ),
+#     )
+
+
 class DeviceModel(BaseModel, db.Model):
     __tablename__ = "Device"
 
@@ -23,9 +60,7 @@ class DeviceModel(BaseModel, db.Model):
     PreHeatTime = db.Column("PreHeatTime", db.Integer)
     IdealHumidity = db.Column("IdealHumidity", db.Integer)
     IdealTemperature = db.Column("IdealTemperature", db.Integer)
-    Clients = db.relationship(
-        "Client", secondary=device_client_table, back_populates="Devices"
-    )
+    Clients = db.relationship("ClientModel", secondary="device_client_table")
 
     def __init__(self, model, pre_heat_time, ideal_humidity, ideal_temperature):
         self.Model = model
@@ -33,23 +68,19 @@ class DeviceModel(BaseModel, db.Model):
         self.IdealHumidity = ideal_humidity
         self.IdealTemperature = ideal_temperature
 
-    def json(self):
-        return {
+    def json(self, local=True):
+        m = {
             "model": self.Model,
             "pre_heat_time": self.PreHeatTime,
             "ideal_humidity": self.IdealHumidity,
             "ideal_temperature": self.IdealTemperature,
         }
 
+        if local:
+            m["clients"] = [c.json(False) for c in self.Clients]
+
+        return m
+
     @classmethod
-    def find_by_model(cls, m):
-
-        res = (
-            cls.query(DeviceModel)
-            .from_statement(text("SELECT * FROM Device where Model=:n"))
-            .params(n=m)
-            .first()
-        )
-
-        db.app.logger.info(f"DEBUG::>> {res}")
-        return res
+    def find_by_model(cls, m) -> "DeviceModel":
+        return cls.query.filter_by(Model=m).first()

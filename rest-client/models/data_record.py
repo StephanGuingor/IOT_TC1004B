@@ -47,7 +47,7 @@ class DataRecordModel(BaseModel, db.Model):
             "record_id": self.RecordID,
             "humidity": self.Humidity,
             "temperature": self.Temperature,
-            "gas_concerntration": self.GasConcentration,
+            "gas_concentration": self.GasConcentration,
         }
 
     @classmethod
