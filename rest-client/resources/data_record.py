@@ -65,6 +65,6 @@ class DataRecordList(Resource):
         try:
             record.save_to_db()
         except Exception as e:
-            return {f"An error ocurred: {e}"}, 500
+            return {"message": f"An error ocurred: {e}"}, 500
 
         return record.json(), 201
