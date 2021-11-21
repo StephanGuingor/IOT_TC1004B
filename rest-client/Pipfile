@@ -15,7 +15,8 @@ mysql-connector = "*"
 flask-expects-json = "*"
 Flask = "*"
 Flask-SQLAlchemy = "*"
+flask-restful = "*"
 mariadb = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.10"
