@@ -35,19 +35,25 @@ class DataRecordModel(BaseModel, db.Model):
         ),
     )
 
-    def __init__(self, humiduty, temperature, gas_concentration):
-        self.Humidity = humiduty
+    def __init__(
+        self, client_id, model, gas_concentration, humidity=None, temperature=None
+    ):
+        self.clientID = client_id
+        self.model = model
+        self.Humidity = humidity
         self.Temperature = temperature
         self.GasConcentration = gas_concentration
-        self.TimeCreated = datetime.utcnow
-        self.RecordID = ""
+        self.TimeCreated = datetime.utcnow()
 
     def json(self):
         return {
+            "client_id": self.clientID,
+            "model": self.model,
             "record_id": self.RecordID,
             "humidity": self.Humidity,
             "temperature": self.Temperature,
             "gas_concentration": self.GasConcentration,
+            "time_created": self.TimeCreated.strftime("%m/%d/%Y, %H:%M:%S"),
         }
 
     @classmethod
