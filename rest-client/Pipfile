@@ -12,9 +12,9 @@ python-dotenv = "*"
 coverage = "*"
 pytest-cov = "*"
 mysql-connector = "*"
-flask-expects-json = "*"
 Flask = "*"
 Flask-SQLAlchemy = "*"
+flask-restful = "*"
 mariadb = "*"
 
 [requires]
