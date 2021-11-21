@@ -1,7 +1,6 @@
 from flask_restful import Resource, reqparse
 from models.device import DeviceModel
 from models.client import ClientModel
-from db import db
 
 
 ERR_NOT_FOUND = ({"message": "Element not found"}, 404)
@@ -13,13 +12,14 @@ parser.add_argument("client_id", type=int, required=True, help="client is requir
 
 
 class Owner(Resource):
-    def post(self):
+    @staticmethod
+    def post():
         data = parser.parse_args()
 
         device = DeviceModel.find_by_model(data["model"])  # validate
         client = ClientModel.find_by_id(data["client_id"])  # validate
 
-        if device == None or client == None:
+        if device is None or client is None:
             return ERR_NOT_FOUND
 
         client.Devices.append(device)

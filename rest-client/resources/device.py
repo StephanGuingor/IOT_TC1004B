@@ -20,7 +20,8 @@ parser.add_argument("ideal_temperature", type=int, required=False)
 
 
 class Device(Resource):
-    def get(self, model):
+    @staticmethod
+    def get(model):
         device = DeviceModel.find_by_model(model)
 
         if device:
@@ -29,12 +30,14 @@ class Device(Resource):
 
 
 class DeviceList(Resource):
-    def get(self):
+    @staticmethod
+    def get():
         return {
             "devices": list(map(lambda x: x.json(), DeviceModel.query.all()))
         }, 200  # filter by client ?
 
-    def post(self):
+    @staticmethod
+    def post():
         data = parser.parse_args()
 
         device = DeviceModel(**data)

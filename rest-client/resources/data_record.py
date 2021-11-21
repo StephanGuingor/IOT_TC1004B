@@ -1,4 +1,5 @@
 from flask_restful import Resource, reqparse
+from sqlalchemy.exc import SQLAlchemyError
 from models.data_record import DataRecordModel
 
 ERR_NOT_FOUND = ({"message": "Element not found"}, 404)
@@ -40,7 +41,8 @@ parser.add_argument(
 
 
 class DataRecord(Resource):
-    def get(self, record_id):
+    @staticmethod
+    def get(record_id):
         record = DataRecordModel.find_by_id(record_id)
         if record:
             return record.json()
@@ -48,12 +50,14 @@ class DataRecord(Resource):
 
 
 class DataRecordList(Resource):
-    def get(self):
+    @staticmethod
+    def get():
         return {
             "data_records": list(map(lambda x: x.json(), DataRecordModel.query.all()))
         }, 200
 
-    def post(self):
+    @staticmethod
+    def post():
         data = parser.parse_args()
 
         record = DataRecordModel(**data)

@@ -8,7 +8,8 @@ parser.add_argument("name", type=str, required=True, help="name is required")
 
 
 class Client(Resource):
-    def get(self, client_id):
+    @staticmethod
+    def get(client_id):
         client = ClientModel.find_by_id(client_id)
         if client:
             return client.json()
@@ -16,10 +17,12 @@ class Client(Resource):
 
 
 class ClientList(Resource):
-    def get(self):
+    @staticmethod
+    def get():
         return {"clients": list(map(lambda x: x.json(), ClientModel.query.all()))}, 200
 
-    def post(self):
+    @staticmethod
+    def post():
         data = parser.parse_args()
 
         client = ClientModel(**data)

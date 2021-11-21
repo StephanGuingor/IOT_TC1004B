@@ -1,7 +1,7 @@
-from db import db
-from models.base_model import BaseModel
 from datetime import datetime
+from models.base_model import BaseModel
 from sqlalchemy import ForeignKeyConstraint
+from db import db
 
 schemaDataRecord = {
     "type": "object",
@@ -51,5 +51,5 @@ class DataRecordModel(BaseModel, db.Model):
         }
 
     @classmethod
-    def find_by_id(cls, id):
-        return cls.query.filter_by(RecordID=id).first()
+    def find_by_id(cls, client_id):
+        return cls.query.filter_by(RecordID=client_id).first()
