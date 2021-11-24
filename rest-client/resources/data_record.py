@@ -8,20 +8,20 @@ ERR_NOT_FOUND = ({"message": "Element not found"}, 404)
 parser = reqparse.RequestParser()
 parser.add_argument(
     "humidity",
-    type=int,
+    type=float,
     required=False,
 )
 
 parser.add_argument(
     "gas_concentration",
-    type=int,
+    type=float,
     required=True,
     help="gas_concentration is required.",
 )
 
 parser.add_argument(
     "temperature",
-    type=int,
+    type=float,
     required=False,
 )
 

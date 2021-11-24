@@ -12,11 +12,11 @@ parser.add_argument(
 
 parser.add_argument(
     "ideal_humidity",
-    type=int,
+    type=float,
     required=False,
 )
 
-parser.add_argument("ideal_temperature", type=int, required=False)
+parser.add_argument("ideal_temperature", type=float, required=False)
 
 
 class Device(Resource):

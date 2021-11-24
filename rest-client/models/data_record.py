@@ -18,9 +18,9 @@ class DataRecordModel(BaseModel, db.Model):
     __tablename__ = "DataRecord"
 
     RecordID = db.Column("RecordID", db.Integer, primary_key=True)
-    Humidity = db.Column("Humidity", db.Integer)
-    Temperature = db.Column("Temperature", db.Integer)
-    GasConcentration = db.Column("GasConcentration", db.Integer, nullable=False)
+    Humidity = db.Column("Humidity", db.Float)
+    Temperature = db.Column("Temperature", db.Float)
+    GasConcentration = db.Column("GasConcentration", db.Float, nullable=False)
     TimeCreated = db.Column(
         "TimeCreated", db.DateTime(timezone=True), default=datetime.utcnow
     )

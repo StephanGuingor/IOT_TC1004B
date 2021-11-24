@@ -58,8 +58,8 @@ class DeviceModel(BaseModel, db.Model):
 
     Model = db.Column("Model", db.String(40), primary_key=True)
     PreHeatTime = db.Column("PreHeatTime", db.Integer)
-    IdealHumidity = db.Column("IdealHumidity", db.Integer)
-    IdealTemperature = db.Column("IdealTemperature", db.Integer)
+    IdealHumidity = db.Column("IdealHumidity", db.Float)
+    IdealTemperature = db.Column("IdealTemperature", db.Float)
     Clients = db.relationship("ClientModel", secondary="device_client_table")
 
     def __init__(self, model, pre_heat_time, ideal_humidity, ideal_temperature):
